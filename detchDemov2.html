@@ -1,0 +1,77 @@
+<!-- passing static data as api -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main"></div>
+  </body>
+
+  <!-- Script -->
+  <script>
+    const data = fetch("https://fakestoreapi.com/products")
+      .then((data) => data.json())
+      .then((data) => fetchData(data));
+
+    // create function to fetch data
+    function fetchData(data) {
+      for (i = 0; i < data.length; i++) {
+        // create div2
+        let main2 = document.createElement("div");
+        main2.className = "box";
+
+        // fetch img
+        const imgElement = document.createElement("img");
+        imgElement.className = "image";
+        imgElement.src = data[i].image;
+
+        // fetch product name
+        const pTagTitle = document.createElement("p");
+        pTagTitle.className = "title";
+        pTagTitle.innerText = data[i].title;
+
+        // fetch product price
+        const pTagPrice = document.createElement("p");
+        pTagPrice.className = "price";
+        pTagPrice.innerText = data[i].price;
+
+        // push img, product name and price
+        document.querySelector(".main").appendChild(main2);
+        main2.appendChild(imgElement);
+        main2.appendChild(pTagTitle);
+        main2.appendChild(pTagPrice);
+      }
+    }
+  </script>
+
+  <style>
+    .main {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .box {
+      display: flex;
+      flex-direction: column;
+
+      height: 200px;
+      width: 200px;
+    }
+
+    .image {
+      height: 100px;
+      width: 100px;
+      border-radius: 4px;
+    }
+    .title {
+      margin: 3px;
+    }
+
+    .price {
+      margin: 0;
+    }
+  </style>
+</html>
